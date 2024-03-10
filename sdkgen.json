@@ -1,0 +1,9 @@
+{
+  "type": "client-go",
+  "require": {
+    "typehub/sdk": {
+      "target": "./sdk",
+      "namespace": "sdk"
+    }
+  }
+}
