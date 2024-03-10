@@ -6,11 +6,11 @@ package sdk
 import "time"
 
 type Comment struct {
-	Id         int              `json:"id"`
-	User       User             `json:"user"`
-	Status     int              `json:"status"`
-	Reaction   CommentReactions `json:"reaction"`
-	Comment    string           `json:"comment"`
-	UpdateDate time.Time        `json:"updateDate"`
-	InsertDate time.Time        `json:"insertDate"`
+	Id         int               `json:"id"`
+	User       *User             `json:"user"`
+	Status     int               `json:"status"`
+	Reaction   *CommentReactions `json:"reaction"`
+	Comment    string            `json:"comment"`
+	UpdateDate time.Time         `json:"updateDate"`
+	InsertDate time.Time         `json:"insertDate"`
 }

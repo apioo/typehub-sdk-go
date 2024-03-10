@@ -6,11 +6,11 @@ package sdk
 import "time"
 
 type TriggerCreate struct {
-	Id         int           `json:"id"`
-	User       User          `json:"user"`
-	Document   Document      `json:"document"`
-	Type       string        `json:"type"`
-	Config     TriggerConfig `json:"config"`
-	UpdateDate time.Time     `json:"updateDate"`
-	InsertDate time.Time     `json:"insertDate"`
+	Id         int            `json:"id"`
+	User       *User          `json:"user"`
+	Document   *Document      `json:"document"`
+	Type       string         `json:"type"`
+	Config     *TriggerConfig `json:"config"`
+	UpdateDate time.Time      `json:"updateDate"`
+	InsertDate time.Time      `json:"insertDate"`
 }

@@ -8,9 +8,9 @@ import "time"
 type PullRequest struct {
 	Id         int       `json:"id"`
 	Status     int       `json:"status"`
-	Source     Document  `json:"source"`
-	Target     Document  `json:"target"`
-	User       User      `json:"user"`
+	Source     *Document `json:"source"`
+	Target     *Document `json:"target"`
+	User       *User     `json:"user"`
 	Title      string    `json:"title"`
 	UpdateDate time.Time `json:"updateDate"`
 	InsertDate time.Time `json:"insertDate"`

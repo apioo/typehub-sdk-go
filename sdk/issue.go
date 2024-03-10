@@ -7,8 +7,8 @@ import "time"
 
 type Issue struct {
 	Id         int       `json:"id"`
-	User       User      `json:"user"`
-	Document   Document  `json:"document"`
+	User       *User     `json:"user"`
+	Document   *Document `json:"document"`
 	Status     int       `json:"status"`
 	Title      string    `json:"title"`
 	UpdateDate time.Time `json:"updateDate"`

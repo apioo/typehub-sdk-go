@@ -7,8 +7,8 @@ import "time"
 
 type Tag struct {
 	Id         string    `json:"id"`
-	Document   Document  `json:"document"`
-	User       User      `json:"user"`
+	Document   *Document `json:"document"`
+	User       *User     `json:"user"`
 	Version    string    `json:"version"`
 	Changelog  string    `json:"changelog"`
 	Spec       any       `json:"spec"`
