@@ -23,7 +23,7 @@ type MetaTag struct {
 
 
 
-// GetAbout 
+// GetAbout Returns meta information and links about the current installed Fusio version
 func (client *MetaTag) GetAbout() (*SystemAbout, error) {
     pathParams := make(map[string]interface{})
 
