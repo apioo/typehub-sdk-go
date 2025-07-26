@@ -481,6 +481,90 @@ func (client *DocumentTag) GetAll(user string, startIndex int, count int, search
     return nil, errors.New(fmt.Sprint("The server returned an unknown status code: ", statusCode))
 }
 
+// Import Import a TypeAPI specification to this document
+func (client *DocumentTag) Import(user string, document string, payload Passthru) (*Message, error) {
+    pathParams := make(map[string]interface{})
+    pathParams["user"] = user
+    pathParams["document"] = document
+
+    queryParams := make(map[string]interface{})
+
+    var queryStructNames []string
+
+    u, err := url.Parse(client.internal.Parser.Url("/document/:user/:document/import", pathParams))
+    if err != nil {
+        return nil, err
+    }
+
+    u.RawQuery = client.internal.Parser.QueryWithStruct(queryParams, queryStructNames).Encode()
+
+    raw, err := json.Marshal(payload)
+    if err != nil {
+        return nil, err
+    }
+
+    var reqBody = bytes.NewReader(raw)
+
+    req, err := http.NewRequest("POST", u.String(), reqBody)
+    if err != nil {
+        return nil, err
+    }
+
+    req.Header.Set("Content-Type", "application/json")
+
+    resp, err := client.internal.HttpClient.Do(req)
+    if err != nil {
+        return nil, err
+    }
+
+    defer resp.Body.Close()
+
+    respBody, err := io.ReadAll(resp.Body)
+    if err != nil {
+        return nil, err
+    }
+
+    if resp.StatusCode >= 200 && resp.StatusCode < 300 {
+        var data Message
+        err := json.Unmarshal(respBody, &data)
+
+        return &data, err
+    }
+
+    var statusCode = resp.StatusCode
+    if statusCode == 400 {
+        var data Message
+        err := json.Unmarshal(respBody, &data)
+
+        return nil, &MessageException{
+            Payload: data,
+            Previous: err,
+        }
+    }
+
+    if statusCode == 404 {
+        var data Message
+        err := json.Unmarshal(respBody, &data)
+
+        return nil, &MessageException{
+            Payload: data,
+            Previous: err,
+        }
+    }
+
+    if statusCode == 500 {
+        var data Message
+        err := json.Unmarshal(respBody, &data)
+
+        return nil, &MessageException{
+            Payload: data,
+            Previous: err,
+        }
+    }
+
+    return nil, errors.New(fmt.Sprint("The server returned an unknown status code: ", statusCode))
+}
+
 // Meta Updates the meta data of an document
 func (client *DocumentTag) Meta(user string, document string, payload DocumentMeta) (*Message, error) {
     pathParams := make(map[string]interface{})
@@ -506,6 +590,175 @@ func (client *DocumentTag) Meta(user string, document string, payload DocumentMe
     var reqBody = bytes.NewReader(raw)
 
     req, err := http.NewRequest("PUT", u.String(), reqBody)
+    if err != nil {
+        return nil, err
+    }
+
+    req.Header.Set("Content-Type", "application/json")
+
+    resp, err := client.internal.HttpClient.Do(req)
+    if err != nil {
+        return nil, err
+    }
+
+    defer resp.Body.Close()
+
+    respBody, err := io.ReadAll(resp.Body)
+    if err != nil {
+        return nil, err
+    }
+
+    if resp.StatusCode >= 200 && resp.StatusCode < 300 {
+        var data Message
+        err := json.Unmarshal(respBody, &data)
+
+        return &data, err
+    }
+
+    var statusCode = resp.StatusCode
+    if statusCode == 400 {
+        var data Message
+        err := json.Unmarshal(respBody, &data)
+
+        return nil, &MessageException{
+            Payload: data,
+            Previous: err,
+        }
+    }
+
+    if statusCode == 404 {
+        var data Message
+        err := json.Unmarshal(respBody, &data)
+
+        return nil, &MessageException{
+            Payload: data,
+            Previous: err,
+        }
+    }
+
+    if statusCode == 500 {
+        var data Message
+        err := json.Unmarshal(respBody, &data)
+
+        return nil, &MessageException{
+            Payload: data,
+            Previous: err,
+        }
+    }
+
+    return nil, errors.New(fmt.Sprint("The server returned an unknown status code: ", statusCode))
+}
+
+// Reset Resets your document to the latest source
+func (client *DocumentTag) Reset(user string, document string, payload Passthru) (*Message, error) {
+    pathParams := make(map[string]interface{})
+    pathParams["user"] = user
+    pathParams["document"] = document
+
+    queryParams := make(map[string]interface{})
+
+    var queryStructNames []string
+
+    u, err := url.Parse(client.internal.Parser.Url("/document/:user/:document/reset", pathParams))
+    if err != nil {
+        return nil, err
+    }
+
+    u.RawQuery = client.internal.Parser.QueryWithStruct(queryParams, queryStructNames).Encode()
+
+    raw, err := json.Marshal(payload)
+    if err != nil {
+        return nil, err
+    }
+
+    var reqBody = bytes.NewReader(raw)
+
+    req, err := http.NewRequest("POST", u.String(), reqBody)
+    if err != nil {
+        return nil, err
+    }
+
+    req.Header.Set("Content-Type", "application/json")
+
+    resp, err := client.internal.HttpClient.Do(req)
+    if err != nil {
+        return nil, err
+    }
+
+    defer resp.Body.Close()
+
+    respBody, err := io.ReadAll(resp.Body)
+    if err != nil {
+        return nil, err
+    }
+
+    if resp.StatusCode >= 200 && resp.StatusCode < 300 {
+        var data Message
+        err := json.Unmarshal(respBody, &data)
+
+        return &data, err
+    }
+
+    var statusCode = resp.StatusCode
+    if statusCode == 400 {
+        var data Message
+        err := json.Unmarshal(respBody, &data)
+
+        return nil, &MessageException{
+            Payload: data,
+            Previous: err,
+        }
+    }
+
+    if statusCode == 404 {
+        var data Message
+        err := json.Unmarshal(respBody, &data)
+
+        return nil, &MessageException{
+            Payload: data,
+            Previous: err,
+        }
+    }
+
+    if statusCode == 500 {
+        var data Message
+        err := json.Unmarshal(respBody, &data)
+
+        return nil, &MessageException{
+            Payload: data,
+            Previous: err,
+        }
+    }
+
+    return nil, errors.New(fmt.Sprint("The server returned an unknown status code: ", statusCode))
+}
+
+// Revert Reverts your document to this commit
+func (client *DocumentTag) Revert(user string, document string, id string, payload Passthru) (*Message, error) {
+    pathParams := make(map[string]interface{})
+    pathParams["user"] = user
+    pathParams["document"] = document
+    pathParams["id"] = id
+
+    queryParams := make(map[string]interface{})
+
+    var queryStructNames []string
+
+    u, err := url.Parse(client.internal.Parser.Url("/document/:user/:document/revert/:id", pathParams))
+    if err != nil {
+        return nil, err
+    }
+
+    u.RawQuery = client.internal.Parser.QueryWithStruct(queryParams, queryStructNames).Encode()
+
+    raw, err := json.Marshal(payload)
+    if err != nil {
+        return nil, err
+    }
+
+    var reqBody = bytes.NewReader(raw)
+
+    req, err := http.NewRequest("POST", u.String(), reqBody)
     if err != nil {
         return nil, err
     }
@@ -610,6 +863,90 @@ func (client *DocumentTag) ShowPreview(user string, document string, version str
     }
 
     var statusCode = resp.StatusCode
+    if statusCode == 500 {
+        var data Message
+        err := json.Unmarshal(respBody, &data)
+
+        return nil, &MessageException{
+            Payload: data,
+            Previous: err,
+        }
+    }
+
+    return nil, errors.New(fmt.Sprint("The server returned an unknown status code: ", statusCode))
+}
+
+// Star Stars this document
+func (client *DocumentTag) Star(user string, document string, payload Passthru) (*Message, error) {
+    pathParams := make(map[string]interface{})
+    pathParams["user"] = user
+    pathParams["document"] = document
+
+    queryParams := make(map[string]interface{})
+
+    var queryStructNames []string
+
+    u, err := url.Parse(client.internal.Parser.Url("/document/:user/:document/star", pathParams))
+    if err != nil {
+        return nil, err
+    }
+
+    u.RawQuery = client.internal.Parser.QueryWithStruct(queryParams, queryStructNames).Encode()
+
+    raw, err := json.Marshal(payload)
+    if err != nil {
+        return nil, err
+    }
+
+    var reqBody = bytes.NewReader(raw)
+
+    req, err := http.NewRequest("POST", u.String(), reqBody)
+    if err != nil {
+        return nil, err
+    }
+
+    req.Header.Set("Content-Type", "application/json")
+
+    resp, err := client.internal.HttpClient.Do(req)
+    if err != nil {
+        return nil, err
+    }
+
+    defer resp.Body.Close()
+
+    respBody, err := io.ReadAll(resp.Body)
+    if err != nil {
+        return nil, err
+    }
+
+    if resp.StatusCode >= 200 && resp.StatusCode < 300 {
+        var data Message
+        err := json.Unmarshal(respBody, &data)
+
+        return &data, err
+    }
+
+    var statusCode = resp.StatusCode
+    if statusCode == 400 {
+        var data Message
+        err := json.Unmarshal(respBody, &data)
+
+        return nil, &MessageException{
+            Payload: data,
+            Previous: err,
+        }
+    }
+
+    if statusCode == 404 {
+        var data Message
+        err := json.Unmarshal(respBody, &data)
+
+        return nil, &MessageException{
+            Payload: data,
+            Previous: err,
+        }
+    }
+
     if statusCode == 500 {
         var data Message
         err := json.Unmarshal(respBody, &data)

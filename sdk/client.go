@@ -79,17 +79,17 @@ func Build(clientId string, clientSecret string, tokenStore sdkgen.TokenStoreInt
     var credentials = sdkgen.OAuth2{
         ClientId: clientId,
         ClientSecret: clientSecret,
-        TokenUrl: "http://localhost/authorization/token",
-        AuthorizationUrl: "http://localhost/authorization/authorize",
+        TokenUrl: "https://api.typehub.cloud/authorization/token",
+        AuthorizationUrl: "https://api.typehub.cloud/authorization/authorize",
         TokenStore: tokenStore,
         Scopes: scopes,
     }
 
-    return NewClient("http://localhost", credentials)
+    return NewClient("https://api.typehub.cloud", credentials)
 }
 
 func BuildAnonymous() (*Client, error) {
     var credentials = sdkgen.Anonymous{}
 
-    return NewClient("http://localhost", credentials)
+    return NewClient("https://api.typehub.cloud", credentials)
 }
