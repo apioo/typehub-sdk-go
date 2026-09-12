@@ -7,6 +7,7 @@ package sdk
 
 // This object represents a token, this an access token which was requested by a user
 type BackendToken struct {
+    Kind string `json:"kind"`
     Id int `json:"id"`
     Status int `json:"status"`
     Name string `json:"name"`

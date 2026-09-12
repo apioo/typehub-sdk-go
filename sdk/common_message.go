@@ -7,6 +7,7 @@ package sdk
 
 // Common error message
 type CommonMessage struct {
+    Kind string `json:"kind"`
     Success bool `json:"success"`
     Message string `json:"message"`
     Id string `json:"id"`

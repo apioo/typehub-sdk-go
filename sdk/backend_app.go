@@ -7,6 +7,7 @@ package sdk
 
 // This object represents an app to access the API on-behalf of a user
 type BackendApp struct {
+    Kind string `json:"kind"`
     Id int `json:"id"`
     UserId int `json:"userId"`
     Status int `json:"status"`

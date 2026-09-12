@@ -6,6 +6,7 @@
 package sdk
 
 type SystemAbout struct {
+    Kind string `json:"kind"`
     ApiVersion string `json:"apiVersion"`
     Title string `json:"title"`
     Description string `json:"description"`
